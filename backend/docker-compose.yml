@@ -1,0 +1,23 @@
+version: '3.8'
+services:
+  app:
+    image: sort-geek:latest
+    ports:
+      - "9090:9090"
+    env_file:
+      - .env
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.0
+    container_name: sort-geek-mysql
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - "3308:3306"
+    networks:
+      default:
+        aliases:
+          - db
