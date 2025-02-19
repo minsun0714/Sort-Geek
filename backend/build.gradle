@@ -40,3 +40,13 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+bootJar {
+	archiveBaseName.set("sort-geek")  // 실행 가능한 Spring Boot JAR 이름 변경
+	archiveVersion.set("0.0.1-SNAPSHOT")
+}
+
+jar {
+	archiveBaseName.set("sort-geek")
+	archiveVersion.set("0.0.1-SNAPSHOT")
+}
