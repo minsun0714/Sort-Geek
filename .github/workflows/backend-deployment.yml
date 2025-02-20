@@ -1,0 +1,73 @@
+name: Deploy to EC2
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set gradlew permissions
+        working-directory: ./backend
+        run: chmod +x gradlew
+
+      - name: Build project
+        working-directory: ./backend
+        run: ./gradlew build
+
+
+      - name: Docker Hub Login
+        run: |
+          echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
+
+      - name: Build Docker image
+        working-directory: ./backend
+        run: |
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/sort-geek:latest .
+
+      - name: Push Docker image
+        run: |
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/sort-geek:latest
+
+      - name: Deploy on EC2 (Pull & Run)
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ubuntu
+          key: ${{ secrets.EC2_SSH_KEY }}
+          port: 22
+          script: |
+            sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/sort-geek:latest
+            
+            if [ ! "$(sudo docker ps -q -f name=sort-geek-mysql)" ]; then
+              echo "Starting MySQL container..."
+              sudo docker run -d \
+                --name sort-geek-mysql \
+                --network sort-geek-network \
+                --network-alias db \
+                -p 3308:3306 \
+                -e MYSQL_ROOT_PASSWORD=${{ secrets.MYSQL_ROOT_PASSWORD }} \
+                -e MYSQL_DATABASE=sortgeek \
+                mysql:8.0
+            else
+              echo "MySQL container already running."
+            fi
+            
+            echo "Waiting for MySQL to be ready..."
+            until nc -z -v -w30 172.24.0.3 3306; do echo "Waiting for database..."; sleep 5; done
+            echo "MySQL is ready."
+
+            
+            sudo docker rm -f sort-geek || true
+            
+            sudo docker run -d \
+              --name sort-geek \
+              --network sort-geek-network \
+              -p 9090:9090 \
+              --env-file /home/ubuntu/.env \
+              ${{ secrets.DOCKERHUB_USERNAME }}/sort-geek:latest
