@@ -44,6 +44,20 @@ jobs:
           script: |
             sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/sort-geek:latest
             
+            if [ ! "$(sudo docker ps -q -f name=sort-geek-mysql)" ]; then
+              echo "Starting MySQL container..."
+              sudo docker run -d \
+                --name sort-geek-mysql \
+                --network sort-geek-network \
+                --network-alias db \
+                -p 3308:3306 \
+                -e MYSQL_ROOT_PASSWORD=${{ secrets.MYSQL_ROOT_PASSWORD }} \
+                -e MYSQL_DATABASE=sortgeek \
+                mysql:8.0
+            else
+              echo "MySQL container already running."
+            fi
+            
             echo "Waiting for MySQL to be ready..."
             until nc -z -v -w30 db 3306; do echo "Waiting for database..."; sleep 5; done
             echo "MySQL is ready."
