@@ -42,15 +42,15 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           port: 22
           script: |
-            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/sort-geek:latest
+            sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/sort-geek:latest
             
             echo "Waiting for MySQL to be ready..."
             until nc -z -v -w30 db 3306; do echo "Waiting for database..."; sleep 5; done
             echo "MySQL is ready."
             
-            docker rm -f sort-geek || true
+            sudo docker rm -f sort-geek || true
             
-            docker run -d \
+            sudo docker run -d \
               --name sort-geek \
               --network sort-geek-network \
               -p 9090:9090 \
