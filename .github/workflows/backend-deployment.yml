@@ -59,8 +59,9 @@ jobs:
             fi
             
             echo "Waiting for MySQL to be ready..."
-            until nc -z -v -w30 db 3306; do echo "Waiting for database..."; sleep 5; done
+            until nc -z -v -w30 172.24.0.3 3306; do echo "Waiting for database..."; sleep 5; done
             echo "MySQL is ready."
+
             
             sudo docker rm -f sort-geek || true
             
