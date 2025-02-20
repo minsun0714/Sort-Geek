@@ -3,7 +3,7 @@ import { NavLink } from "react-router";
 export default function Header() {
   return (
     <header className="flex justify-around items-center p-4 text-black border-b border-gray-100 sticky top-0 bg-white z-50">
-      <NavLink to="/" end className={"flex items-center gap-2"}>
+      <NavLink to="/" end className={"flex items-center gap-2 font-extrabold"}>
         <img src="/logo.svg" alt="logo" />
         Sort Geek
       </NavLink>
