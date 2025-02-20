@@ -21,9 +21,11 @@ jobs:
         run: ./gradlew build
 
       - name: Build Docker image
+        working-directory: ./backend
         run: docker build -t sort-geek:latest .
 
       - name: Save Docker image as tar
+        working-directory: ./backend
         run: docker save -o sort-geek.tar sort-geek:latest
 
       - name: Copy Docker image to EC2
