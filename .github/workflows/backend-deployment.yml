@@ -28,6 +28,9 @@ jobs:
         working-directory: ./backend
         run: docker save -o sort-geek.tar sort-geek:latest
 
+      - name: Move tar file to root
+        run: mv ./backend/sort-geek.tar .
+
       - name: Copy Docker image to EC2
         uses: appleboy/scp-action@master
         with:
