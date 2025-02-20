@@ -29,6 +29,9 @@ jobs:
       - name: Move tar file to root
         run: mv ./backend/sort-geek.tar .
 
+      - name: Check file in root directory
+        run: ls -la
+
       - name: Set tar file permissions
         run: chmod 644 sort-geek.tar
 
