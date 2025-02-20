@@ -20,33 +20,21 @@ jobs:
         working-directory: ./backend
         run: ./gradlew build
 
+
+      - name: Docker Hub Login
+        run: |
+          echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
+
       - name: Build Docker image
-        run: docker build -t sort-geek:latest .
+        working-directory: ./backend
+        run: |
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/sort-geek:latest .
 
-      - name: Save Docker image as tar
-        run: docker save -o sort-geek.tar sort-geek:latest
+      - name: Push Docker image
+        run: |
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/sort-geek:latest
 
-      - name: Move tar file to root
-        run: mv ./backend/sort-geek.tar .
-
-      - name: Check file in root directory
-        run: ls -la
-
-      - name: Set tar file permissions
-        run: chmod 644 sort-geek.tar
-
-      - name: Copy Docker image to EC2
-        uses: appleboy/scp-action@master
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ubuntu
-          key: ${{ secrets.EC2_SSH_KEY }}
-          port: 22
-          source: "sort-geek.tar"
-          target: "/home/ubuntu/"
-          tar: false
-
-      - name: Deploy on EC2
+      - name: Deploy on EC2 (Pull & Run)
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.EC2_HOST }}
@@ -54,6 +42,17 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           port: 22
           script: |
-            sudo docker load -i /home/ubuntu/sort-geek.tar
-            sudo docker compose down --volumes --remove-orphans
-            sudo -E docker compose up -d --remove-orphans
+            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/sort-geek:latest
+            
+            echo "Waiting for MySQL to be ready..."
+            until nc -z -v -w30 db 3306; do echo "Waiting for database..."; sleep 5; done
+            echo "MySQL is ready."
+            
+            docker rm -f sort-geek || true
+            
+            docker run -d \
+              --name sort-geek \
+              --network sort-geek-network \
+              -p 9090:9090 \
+              --env-file /home/ubuntu/.env \
+              ${{ secrets.DOCKERHUB_USERNAME }}/sort-geek:latest
