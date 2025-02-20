@@ -44,6 +44,7 @@ jobs:
           port: 22
           source: "sort-geek.tar"
           target: "/home/ubuntu/"
+          tar: false
 
       - name: Deploy on EC2
         uses: appleboy/ssh-action@master
