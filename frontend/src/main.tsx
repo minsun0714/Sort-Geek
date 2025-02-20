@@ -14,6 +14,7 @@ import Register from "./pages/Register.tsx";
 import SortAlgorithmPractice from "./pages/SortAlgorithmPractice.tsx";
 import ExecutionResult from "./pages/ExecutionResult.tsx";
 import TestCase from "./pages/TestCase.tsx";
+import SortAlgorithmLayout from "./layouts/SortAlgorithmLayout.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -31,7 +32,8 @@ createRoot(document.getElementById("root")!).render(
           <Route index path="codelist" element={<MyCodeList />} />
         </Route>
 
-        <Route path="board" element={<SortAlgorithmBoard />}>
+        <Route path="board" element={<SortAlgorithmLayout />}>
+          <Route index element={<SortAlgorithmBoard />} />
           <Route path=":id" element={<SortAlgorithmDetail />} />
         </Route>
         <Route path="practice" element={<SortAlgorithmPractice />}>
