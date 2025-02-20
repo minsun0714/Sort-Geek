@@ -1,4 +1,5 @@
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router";
 import Button from "../components/auth/Button";
 
 type LoginFormData = {
@@ -7,6 +8,7 @@ type LoginFormData = {
 };
 
 export default function Login() {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -32,6 +34,7 @@ export default function Login() {
         )}
         <label className="py-2 w-full">비밀번호</label>
         <input
+          type="password"
           {...register("password", { required: true })}
           className="h-10 p-2 w-full border-2 border-blue-900 outline-none"
         />
@@ -47,6 +50,9 @@ export default function Login() {
           <Button text="로그인" />
         </div>
       </form>
+      <div className="w-full text-gray-500">
+        <button onClick={() => navigate("/register")}>회원가입</button>
+      </div>
     </div>
   );
 }
