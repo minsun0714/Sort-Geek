@@ -29,6 +29,9 @@ jobs:
       - name: Move tar file to root
         run: mv ./backend/sort-geek.tar .
 
+      - name: Set tar file permissions
+        run: chmod 644 sort-geek.tar
+
       - name: Copy Docker image to EC2
         uses: appleboy/scp-action@master
         with:
