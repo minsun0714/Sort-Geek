@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Data
@@ -18,7 +19,7 @@ public class CustomTestCase {
     private Long testCaseId;
 
     @Column
-    private String testInput;
+    private List<Long> testInput;
 
     @Column
     private LocalDateTime createdAt;
