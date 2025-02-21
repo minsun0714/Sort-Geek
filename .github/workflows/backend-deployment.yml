@@ -62,8 +62,8 @@ jobs:
             until nc -z -v -w30 172.24.0.3 3306; do echo "Waiting for database..."; sleep 5; done
             echo "MySQL is ready."
 
-            
             sudo docker rm -f sort-geek || true
+            sudo docker image prune -f
             
             sudo docker run -d \
               --name sort-geek \
