@@ -4,3 +4,7 @@ spring:
 
   profiles:
     active: test  # 기본적으로 로컬 환경을 활성화
+
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
