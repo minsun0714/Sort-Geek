@@ -1,4 +1,4 @@
-package com.sortgeek.demo;
+package com.demo.sortgeek;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
