@@ -2,9 +2,29 @@ spring:
   application:
     name: demo
 
-  profiles:
-    active: test  # 기본적으로 로컬 환경을 활성화
+  datasource:
+    url: ${SORT_GEEK_LOCAL_DATASOURCE_URL}
+    username: ${SORT_GEEK_DATASOURCE_USERNAME}
+    password: ${SORT_GEEK_DATASOURCE_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
 
-  autoconfigure:
-    exclude:
-      - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+  profiles:
+    active: test # 기본적으로 로컬 환경을 활성화
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+#  autoconfigure:
+#    exclude:
+#      - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+
+server:
+  port: 8084
+
+
