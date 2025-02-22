@@ -14,7 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import java.util.Objects;
 
 import static com.demo.sortgeek.DTOmapper.memberMapper.toMemberResponseDTO;
-import static com.demo.sortgeek.security.SecurityUtil.getAuthenticatedMemberId;
+import static com.demo.sortgeek.security.utils.SecurityUtil.getAuthenticatedMemberId;
 
 @Service
 @AllArgsConstructor
