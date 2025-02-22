@@ -3,9 +3,9 @@ package com.demo.sortgeek.service;
 import com.demo.sortgeek.domain.dto.request.MemberCreateRequestDTO;
 import com.demo.sortgeek.domain.dto.request.MemberUpdateRequestDTO;
 import com.demo.sortgeek.domain.dto.response.MemberResponseDTO;
-import jakarta.transaction.Transactional;
+import org.springframework.stereotype.Service;
 
-@Transactional
+@Service
 public class MemberServiceImpl implements MemberService{
     @Override
     public MemberResponseDTO createMember(MemberCreateRequestDTO memberRequestDTO) {

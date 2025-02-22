@@ -2,11 +2,11 @@ package com.demo.sortgeek.service;
 
 import com.demo.sortgeek.domain.dto.request.CommentCreateRequestDTO;
 import com.demo.sortgeek.domain.dto.response.CommentResponseDTO;
-import jakarta.transaction.Transactional;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Transactional
+@Service
 public class CommentServiceImpl implements CommentService{
     @Override
     public CommentResponseDTO createComment(CommentCreateRequestDTO commentCreateRequestDTO) {

@@ -2,11 +2,11 @@ package com.demo.sortgeek.service;
 
 import com.demo.sortgeek.domain.dto.request.SolvingCodeUpdateRequestDTO;
 import com.demo.sortgeek.domain.dto.response.SolvingCodeResponseDTO;
-import jakarta.transaction.Transactional;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-@Transactional
+@Service
 public class SolvingCodeServiceImpl implements SolvingCodeService{
     @Override
     public SolvingCodeResponseDTO executeSolvingCode(SolvingCodeUpdateRequestDTO solvingCodeUpdateRequestDTO) {

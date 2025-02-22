@@ -1,8 +1,8 @@
 package com.demo.sortgeek.service;
 
-import jakarta.transaction.Transactional;
+import org.springframework.stereotype.Service;
 
-@Transactional
+@Service
 public class DislikeServiceImpl implements DislikeService{
     @Override
     public Boolean createDislike(Long codeId) {

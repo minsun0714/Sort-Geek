@@ -4,11 +4,11 @@ package com.demo.sortgeek.service;
 import com.demo.sortgeek.domain.dto.request.CustomTestCaseCreateRequestDTO;
 import com.demo.sortgeek.domain.dto.request.CustomTestCaseUpdateRequestDTO;
 import com.demo.sortgeek.domain.dto.response.CustomTestCaseResponseDTO;
-import jakarta.transaction.Transactional;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Transactional
+@Service
 public class CustomTestCaseServiceImpl implements CustomTestCaseService {
     @Override
     public CustomTestCaseResponseDTO createCustomTestCase(CustomTestCaseCreateRequestDTO customTestCaseRequestDTO) {

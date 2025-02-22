@@ -2,10 +2,10 @@ package com.demo.sortgeek.service;
 
 import com.demo.sortgeek.domain.dto.request.RegisteredCodeCreateRequestDTO;
 import com.demo.sortgeek.domain.dto.response.RegisteredCodeResponseDTO;
-import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
+import org.springframework.stereotype.Service;
 
-@Transactional
+@Service
 public class RegisteredCodeServiceImpl implements RegisteredCodeService{
     @Override
     public RegisteredCodeResponseDTO createRegisteredCode(RegisteredCodeCreateRequestDTO registeredCodeCreateRequestDTO) {
