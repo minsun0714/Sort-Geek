@@ -11,5 +11,5 @@ public interface MemberService {
 
     MemberResponseDTO updateMember(MemberUpdateRequestDTO memberUpdateRequestDTO);
 
-    Boolean deleteMember();
+    void deleteMember();
 }

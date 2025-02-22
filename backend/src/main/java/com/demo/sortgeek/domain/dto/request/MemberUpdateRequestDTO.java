@@ -7,5 +7,6 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MemberUpdateRequestDTO {
+    private String password;
     private String profileImg;
 }

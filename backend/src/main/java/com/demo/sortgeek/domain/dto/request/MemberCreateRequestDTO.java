@@ -8,4 +8,5 @@ import lombok.*;
 public class MemberCreateRequestDTO {
     private String loginId;
     private String password;
+    private String passwordConfirm;
 }

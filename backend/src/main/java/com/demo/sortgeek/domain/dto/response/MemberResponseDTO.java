@@ -15,4 +15,5 @@ public class MemberResponseDTO {
     private String profileImg;
     private ROLE role;
     private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 }
