@@ -8,6 +8,7 @@ public class memberMapper {
 
 
         return MemberResponseDTO.builder()
+                .memberId(member.getMemberId())
                 .loginId(member.getLoginId())
                 .profileImg(member.getProfileImg())
                 .role(member.getRole())
