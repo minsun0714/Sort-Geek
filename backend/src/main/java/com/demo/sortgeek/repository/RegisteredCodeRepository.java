@@ -10,5 +10,5 @@ import java.util.List;
 public interface RegisteredCodeRepository extends JpaRepository<RegisteredCode, Long> {
     Page<RegisteredCode> findAll(Pageable pageable);
 
-    Page<RegisteredCode> findByMemberId(Long memberId, Pageable pageable);
+    Page<RegisteredCode> findByMemberMemberId(Long memberId, Pageable pageable);
 }

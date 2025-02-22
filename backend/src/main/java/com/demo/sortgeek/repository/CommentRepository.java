@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface CommentRepository extends JpaRepository<Comment, Long> {
-    List<Comment> findByRegisteredCodeId(Long registeredCodeId); // 특정 코드에 달린 댓글 조회
+    List<Comment> findByRegisteredCodeCodeId(Long codeId); // 특정 코드에 달린 댓글 조회
 
-    List<Comment> findByParentCommentId(Long parentId); // 대댓글 조회
+    List<Comment> findByParentCommentCommentId(Long parentId); // 대댓글 조회
 }

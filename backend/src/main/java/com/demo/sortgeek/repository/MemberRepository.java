@@ -7,4 +7,8 @@ import java.util.Optional;
 
 public interface MemberRepository extends JpaRepository<Member, Long> {
     Optional<Member> findByLoginId(String loginId); // 유저 ID로 조회
+
+    Boolean existsByLoginId(String loginId);
+
+    Boolean deleteByLoginId(String loginId);
 }
