@@ -52,7 +52,9 @@ public class MemberServiceImpl implements MemberService{
     @Override
     @Transactional
     public MemberResponseDTO updateMember(MemberUpdateRequestDTO memberUpdateRequestDTO) {
+        System.out.println(memberUpdateRequestDTO);
         Long memberId = getAuthenticatedMemberId();
+        System.out.println(memberId);
 
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new IllegalArgumentException("Member not found"));

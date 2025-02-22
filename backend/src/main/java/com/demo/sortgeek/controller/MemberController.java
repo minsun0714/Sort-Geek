@@ -33,9 +33,10 @@ public class MemberController {
 
     @PutMapping
     public ResponseEntity<MemberResponseDTO> updateMember(@Valid @RequestBody MemberUpdateRequestDTO memberUpdateRequestDTO) {
-        MemberResponseDTO createdUser = memberService.updateMember(memberUpdateRequestDTO);
+        System.out.println(memberUpdateRequestDTO);
+        MemberResponseDTO updatedUser = memberService.updateMember(memberUpdateRequestDTO);
 
-        return ResponseEntity.status(HttpStatus.OK).body(createdUser);
+        return ResponseEntity.status(HttpStatus.OK).body(updatedUser);
     }
 
     @DeleteMapping

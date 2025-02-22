@@ -9,6 +9,13 @@ public class SecurityUtil {
         if (authentication == null || !(authentication.getPrincipal() instanceof String)) {
             throw new IllegalArgumentException("Member not authenticated");
         }
-        return (Long) authentication.getPrincipal();
+
+        String principal = (String) authentication.getPrincipal();
+
+        try {
+            return Long.parseLong(principal);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("Invalid member ID format");
+        }
     }
 }
