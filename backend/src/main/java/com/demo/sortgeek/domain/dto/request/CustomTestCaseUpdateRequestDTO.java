@@ -9,5 +9,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CustomTestCaseUpdateRequestDTO {
+    private Long testCaseId;
     private List<Long> testInput;
 }
